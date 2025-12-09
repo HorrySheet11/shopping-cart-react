@@ -1,0 +1,27 @@
+.header{
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  nav{
+    display: flex;
+    gap: 20px;
+    li{
+      list-style-type: none;
+      a{
+        color: white;
+        font-size: 2rem;
+        text-decoration: none;
+        transition:all 0.3s ease-in-out;
+      }
+      a:hover{
+        color: #61dafb;
+        transform: scale(2);
+      }
+    }
+  }
+}
