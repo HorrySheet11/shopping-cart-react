@@ -25,3 +25,18 @@
     }
   }
 }
+
+.randomDog{
+  width:70%;
+  cursor: pointer;
+  transition:all 0.3s ease-in-out;
+  margin-top:20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.randomDog:hover{
+  transform: scale(1.01);
+}
+.randomDog:active{
+  transform: scale(0.99);
+}

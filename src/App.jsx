@@ -2,12 +2,13 @@ import React,{ useState } from 'react'
 import './App.css'
 import { Outlet,Link } from "react-router";
 import styles from './styles.module.css';
-
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 function App() {
+  const queryClient = new QueryClient()
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <header className={styles.header}>
         <nav>
           <li>
@@ -24,7 +25,7 @@ function App() {
       <main>
         <Outlet/>
       </main>
-    </>
+    </QueryClientProvider>
   )
 }
 
