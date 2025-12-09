@@ -4,8 +4,8 @@ import { Outlet,Link } from "react-router";
 import styles from './styles.module.css';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
+const queryClient = new QueryClient()
 function App() {
-  const queryClient = new QueryClient()
 
   return (
     <QueryClientProvider client={queryClient}>

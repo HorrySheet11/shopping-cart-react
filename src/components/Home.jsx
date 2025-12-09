@@ -4,15 +4,12 @@ import styles from '../styles.module.css';
 function Home() {
 	const { isPending, data, error, refetch } = useQuery({
 		queryKey: ["dogImage"],
+    gcTime:0,
 		queryFn: async () => {
-			const res = await fetch("https://dog.ceo/api/breeds/image/random");
+			const res = await fetch("https://dog.ceo/api/breed/husky/images/random");
 			return res.json();
 		},
 	});
-
-	const handleClick = () => {
-		refetch();
-	};
 
 	if (isPending) return <div>Loading...</div>;
 	if (error) return <div>Error loading image</div>;
@@ -28,8 +25,8 @@ function Home() {
 			<img className={styles.randomDog}
 				src={data?.message}
 				alt="dog"
-				onClick={handleClick}
-				onKeyPress={handleClick}
+				onClick={refetch}
+				onKeyPress={()=>{}}
 			/>
 		</div>
 	);
