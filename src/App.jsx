@@ -11,7 +11,6 @@ function App() {
   const handleCartData = (product) => {
     setCart((prevCart) => [...prevCart, product]);
     console.log(cart);
-    
   };
 
   return (
