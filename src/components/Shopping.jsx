@@ -15,9 +15,9 @@ function Shopping() {
 		},
 	});
 
-	function handleShopping(product) {
-    handleCartData(product);
-	}
+	// function handleShopping(product) {
+  //   handleCartData(product);
+	// }
 
 	return (
 		<div>
@@ -27,17 +27,14 @@ function Shopping() {
 			{error && <div>Error loading products</div>}
 			<ul className={styles.store}>
 				{data?.map((product) => (
-					<li key={product.id}>
+					<li className={styles.product} key={product.id}>
 						<h2>{product.title}</h2>
 						<p>{product.description}</p>
-						<p>Price: ${product.price}</p>
 						<button
 							type="button"
-							onClick={() => {
-								handleShopping(product);
-							}}
+							onClick={()=>handleCartData(product)}
 						>
-							Add to Cart
+							Add to Cart: ${product.price}
 						</button>
 					</li>
 				))}
