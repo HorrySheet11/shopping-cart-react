@@ -6,13 +6,20 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
 function App() {
+  const [cart, setCart] = useState([]);
+  
+  const handleCartData = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+    console.log(cart);
+    
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
       <header className={styles.header}>
         <nav>
           <li>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/shopping">Shopping</Link>
@@ -23,7 +30,7 @@ function App() {
         </nav>
       </header>
       <main>
-        <Outlet/>
+        <Outlet context={{ handleCartData, cart }}/>
       </main>
     </QueryClientProvider>
   )

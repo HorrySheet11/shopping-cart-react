@@ -21,10 +21,10 @@ function Home() {
 			<p>
 				Check out our <a href="/shop">Shop</a> or <a href="/cart">Cart</a>!
 			</p>
-			<h2>Here is a random picture of a dog :3</h2>
+			<h2>Here is a random picture of a husky :3</h2>
 			<img className={styles.randomDog}
 				src={data?.message}
-				alt="dog"
+				alt="random husky"
 				onClick={refetch}
 				onKeyPress={()=>{}}
 			/>
