@@ -28,7 +28,7 @@ function App() {
           </li>
         </nav>
       </header>
-      <main>
+      <main className={styles.main}>
         <Outlet context={{ handleCartData, cart }}/>
       </main>
     </QueryClientProvider>

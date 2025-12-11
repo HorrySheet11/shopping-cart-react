@@ -19,21 +19,19 @@ function Cart() {
 		<div>
 			<h1>Your Cart</h1>
 			<p>Review the items you have added to your cart.</p>
-			<p>
-				<a href="/shop">Continue Shopping</a>
-			</p>
-			<div className="cartDiv">
+			<div className={styles.cartDiv}>
 				<ul>
 					{Array.from(itemsMap.values()).map((item) => (
 						<li key={item.id}>
 							<h2>{item.title}</h2>
-							<p>Price: ${item.price}</p>
 							<p>Count: {item.count}</p>
+							<p>Price: ${item.price}</p>
 						</li>
 					))}
 				</ul>
-				<p>Total: ${total}</p>
+				<button type="button" className={styles.checkout}>Checkout: ${total}</button>
 			</div>
+			
 		</div>
 	);
 }
