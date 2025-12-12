@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Shopping() {
-	const [shoppingCart, setShoppingCart] = useState([]);
 	const { handleCartData } = useOutletContext();
-
 	const { isPending, data, error } = useQuery({
 		queryKey: ["products"],
 		queryFn: async () => {
@@ -15,9 +12,6 @@ function Shopping() {
 		},
 	});
 
-	// function handleShopping(product) {
-  //   handleCartData(product);
-	// }
 
 	return (
 		<div>
@@ -29,7 +23,7 @@ function Shopping() {
 				{data?.map((product) => (
 					<li className={styles.product} key={product.id}>
 						<h2>{product.title}</h2>
-						<p>{product.description}</p>
+						<img src={product.image} alt={product.title} />
 						<button
 							type="button"
 							onClick={()=>handleCartData(product)}

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import styles from '../styles.module.css';
+import styles from "../styles.module.css";
 
 function Home() {
 	const { isPending, data, error, refetch } = useQuery({
 		queryKey: ["dogImage"],
-    gcTime:0,
+		gcTime: 0,
 		queryFn: async () => {
 			const res = await fetch("https://dog.ceo/api/breed/husky/images/random");
 			return res.json();
@@ -22,11 +22,12 @@ function Home() {
 				Check out our <a href="/shop">Shop</a> or <a href="/cart">Cart</a>!
 			</p>
 			<h2>Here is a random picture of a husky :3</h2>
-			<img className={styles.randomDog}
+			<img
+				className={styles.randomDog}
 				src={data?.message}
 				alt="random husky"
 				onClick={refetch}
-				onKeyPress={()=>{}}
+				onKeyPress={() => {}}
 			/>
 		</div>
 	);
