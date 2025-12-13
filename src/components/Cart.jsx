@@ -21,13 +21,7 @@ function Cart() {
 	}
 
 	function checkCount(id){
-		let count =0;
-		for(let i = 0; i < cart.length; i++){
-			if(cart[i].id === id){
-				count++;
-			}
-		}
-		return count;
+		return cart.reduce((acc, item) => item.id === id ? acc + 1 : acc, 0);
 	}
 
 	return (
