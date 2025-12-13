@@ -10,18 +10,14 @@ function App() {
 
 	const handleCartData = (product) => {
 		setCart((prevCart) => [...prevCart, product]);
-		console.log(cart);
 	};
 
 	const deleteItem = (product) => {
-		for (let i = 0; i < cart.length; i++) {
-			if (cart[i].id === product.id) {
-				cart.splice(i, 1);
-				setCart([...cart]);
-				return;
-			}
-		}
-    console.log(cart);
+
+		const index = cart.indexOf(product);
+		const newCart = [...cart];
+		newCart.splice(index, 1);
+		setCart(newCart);
 	};
 
 	return (

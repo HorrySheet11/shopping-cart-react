@@ -3,30 +3,31 @@ import { useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Cart() {
-	const { handleCartData, deleteItem, cart } = useOutletContext();
-	const itemsMap = cart.reduce((map, item) => {
-			const existingItem = map.get(item.id);
-			if (existingItem) {
-				return map.set(item.id, { ...item, count: existingItem.count + 1 });
-			}
-			return map.set(item.id, { ...item, count: 1 });
-		}, new Map());
+	const { handleCartData, deleteItem, cart,setCart } = useOutletContext();
+	const total = cart.reduce((acc, item) => acc + item.price, 0);
 
-		const total = Array.from(itemsMap.values()).reduce((acc, item) => {
-			return acc + item.price * item.count;
-		}, 0);
-	
+	const cartSet = [...new Set(cart)];
 
-	function handleCountChange(e, id) {
+	function handleCountChange(e, item) {
 		const newCount = +e.target.value;
-		const existingItem = itemsMap.get(id);
+		const oldCount = checkCount(item.id);
 		if (newCount === 0) {
-			itemsMap.delete(id);
-		} else if (newCount > existingItem.count) {
-			handleCartData(existingItem);
-		} else if (newCount < existingItem.count) {
-			deleteItem(existingItem);
+			setCart(cart.filter((items) => items !== item));
+		} else if (newCount > oldCount) {
+			handleCartData(item);
+		} else if (newCount < oldCount) {
+			deleteItem(item.id);
 		}
+	}
+
+	function checkCount(id){
+		let count =0;
+		for(let i = 0; i < cart.length; i++){
+			if(cart[i].id === id){
+				count++;
+			}
+		}
+		return count;
 	}
 
 	return (
@@ -35,7 +36,7 @@ function Cart() {
 			<p>Review the items you have added to your cart.</p>
 			<div className={styles.cartDiv}>
 				<ul>
-					{Array.from(itemsMap.values()).map((item) => (
+					{Array.from(cartSet.values()).map((item) => (
 						<li className={styles.cartItem} key={item.id}>
 							<h2>{item.title}</h2>
 							<p>
@@ -43,8 +44,8 @@ function Cart() {
 								<input
 									className={styles.itemCount}
 									type="number"
-									value={item.count}
-									onChange={(e) => handleCountChange(e, item.id)}
+									value={checkCount(item.id)}
+									onChange={(e) => handleCountChange(e, item)}
 								/>
 							</p>
 							<p>Price: ${item.price}</p>
