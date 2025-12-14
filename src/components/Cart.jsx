@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Cart() {
 	const { handleCartData, deleteItem, cart, setCart } = useOutletContext();
 	const [showDialog, setShowDialog] = useState(false);
 	const total = cart.reduce((acc, item) => acc + item.price, 0);
+	const dialogRef = useRef(null);
+	const loadingRef = useRef(null);
+	const nav = useNavigate();
 
 	const cartSet = [...new Set(cart)];
 
@@ -25,17 +28,34 @@ function Cart() {
 		return cart.reduce((acc, item) => (item.id === id ? acc + 1 : acc), 0);
 	}
 
+	function confirmCheckout(e) {
+		setShowDialog(false);
+		setCart([]);
+		alert(e ==='empty'? "Your cart is empty" : "Thank you for your purchase");
+		dialogRef.current?.close();
+		nav("/shopping");
+	}
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <doesn't need dependency for nav and cart.length>
 	useEffect(() => {
+		if (showDialog === "loading") {
+			loadingRef.current?.showModal();
+		}
 		function handleCheckout() {
-			setShowDialog(true);
+			loadingRef.current?.close();
+			dialogRef.current?.showModal();
 		}
 		if (showDialog) {
 			const timer = setTimeout(() => {
 				handleCheckout();
-			}, 1000);
-			return () => clearTimeout(timer);
+			}, 3000);
+			return () => {
+				clearTimeout(timer);
+			};
+		} else if(cart.length === 0){
+			confirmCheckout('empty');
 		}
-	}, [showDialog]);
+	},[showDialog]);
 
 	return (
 		<div>
@@ -67,17 +87,33 @@ function Cart() {
 					Checkout: ${total.toFixed(2)}
 				</button>
 			</div>
-			{showDialog === "loading" ? (
-				<dialog>
-					<h1>Processing...</h1>
-				</dialog>
-			) : (
-				showDialog && (
-					<dialog className={styles.dialog}>
-						<h1>DIALOG!</h1>
-					</dialog>
-				)
-			)}
+			<dialog className={styles.dialog} ref={loadingRef}>
+				<h1>Processing...</h1>
+			</dialog>
+			<dialog
+				className={styles.dialog}
+				ref={dialogRef}
+				onCancel={() => showDialog(false)}
+			>
+				<h1>Checkout Summary</h1>
+				<ul>
+					{Array.from(cartSet.values()).map((item) => (
+						<li className={styles.cartItem} key={item.id}>
+							<h2>
+								{item.title} x {checkCount(item.id)}
+							</h2>
+							<p>: ${(item.price * checkCount(item.id)).toFixed(2)}</p>
+						</li>
+					))}
+				</ul>
+				<h3>total: ${total.toFixed(2)}</h3>
+				<button type="submit" onClick={() => confirmCheckout()}>
+					Confirm Checkout
+				</button>{" "}
+				<button type="button" onClick={() => dialogRef.current?.close()}>
+					Cancel
+				</button>
+			</dialog>
 		</div>
 	);
 }

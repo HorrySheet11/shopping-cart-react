@@ -169,7 +169,7 @@
 .itemCount {
 	font-size: 1.5rem;
 	font-weight: bold;
-	width: 1.5em;
+	width: 2em;
 	display: inline;
 	margin-left:10px;
 	background:transparent;
@@ -183,5 +183,20 @@
 
 .dialog{
 	z-index:100;
-	display:block;
+	background-color:rgba(0, 0, 0, 0.5);
+	/* display:flex; */
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	border:none;
+	border-radius:0;
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	overflow-y: auto;
+	padding:20px 40px;
+	width:100%;
+	height:100vh;
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
 }
