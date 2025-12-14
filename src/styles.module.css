@@ -180,3 +180,8 @@
 .itemCount:focus-visible {
 	outline: none;
 }
+
+.dialog{
+	z-index:100;
+	display:block;
+}

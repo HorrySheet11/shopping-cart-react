@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Cart() {
-	const { handleCartData, deleteItem, cart,setCart } = useOutletContext();
+	const { handleCartData, deleteItem, cart, setCart } = useOutletContext();
+	const [showDialog, setShowDialog] = useState(false);
 	const total = cart.reduce((acc, item) => acc + item.price, 0);
 
 	const cartSet = [...new Set(cart)];
@@ -20,9 +21,21 @@ function Cart() {
 		}
 	}
 
-	function checkCount(id){
-		return cart.reduce((acc, item) => item.id === id ? acc + 1 : acc, 0);
+	function checkCount(id) {
+		return cart.reduce((acc, item) => (item.id === id ? acc + 1 : acc), 0);
 	}
+
+	useEffect(() => {
+		function handleCheckout() {
+			setShowDialog(true);
+		}
+		if (showDialog) {
+			const timer = setTimeout(() => {
+				handleCheckout();
+			}, 1000);
+			return () => clearTimeout(timer);
+		}
+	}, [showDialog]);
 
 	return (
 		<div>
@@ -46,10 +59,25 @@ function Cart() {
 						</li>
 					))}
 				</ul>
-				<button type="button" className={styles.checkout}>
+				<button
+					type="button"
+					className={styles.checkout}
+					onClick={() => setShowDialog("loading")}
+				>
 					Checkout: ${total.toFixed(2)}
 				</button>
 			</div>
+			{showDialog === "loading" ? (
+				<dialog>
+					<h1>Processing...</h1>
+				</dialog>
+			) : (
+				showDialog && (
+					<dialog className={styles.dialog}>
+						<h1>DIALOG!</h1>
+					</dialog>
+				)
+			)}
 		</div>
 	);
 }
