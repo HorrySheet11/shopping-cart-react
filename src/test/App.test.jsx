@@ -11,9 +11,7 @@ describe("App component", () => {
 				<App />
 			</MemoryRouter>,
 		);
-		// using regex with the i flag allows simpler case-insensitive comparison
-		// expect(screen.getByRole("header").textContent).toMatch(/our first test/i);
-		screen.debug();
+		// screen.debug();
 
 		const heading = screen.getByTestId("header");
 		const links = screen.getAllByRole("link");
