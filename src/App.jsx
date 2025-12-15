@@ -22,7 +22,7 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<header className={styles.header}>
+			<header className={styles.header} data-testid='header'>
 				<nav>
 					<li>
 						<Link to="/">Home</Link>
