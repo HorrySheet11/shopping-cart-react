@@ -12,13 +12,16 @@ function App() {
 		setCart((prevCart) => [...prevCart, product]);
 	};
 
-	const deleteItem = (product) => {
-
+	const decreaseItem = (product) => {
 		const index = cart.indexOf(product);
 		const newCart = [...cart];
 		newCart.splice(index, 1);
 		setCart(newCart);
 	};
+
+	const deleteItem = (item) => {
+		setCart(cart.filter((cartItem) => cartItem !== item))
+	}
 
 	return (
 		<QueryClientProvider client={queryClient}>
@@ -36,7 +39,7 @@ function App() {
 				</nav>
 			</header>
 			<main className={styles.main}>
-				<Outlet context={{ handleCartData, deleteItem, cart, setCart }} />
+				<Outlet context={{ handleCartData, deleteItem, cart, decreaseItem }} />
 			</main>
 		</QueryClientProvider>
 	);

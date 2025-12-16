@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Cart() {
-	const { handleCartData, deleteItem, cart, setCart } = useOutletContext();
+	const { handleCartData, deleteItem, cart, decreaseItem } = useOutletContext();
 	const [showDialog, setShowDialog] = useState(false);
 	const total = cart.reduce((acc, item) => acc + item.price, 0);
 	const dialogRef = useRef(null);
@@ -16,11 +16,11 @@ function Cart() {
 		const newCount = +e.target.value;
 		const oldCount = checkCount(item.id);
 		if (newCount === 0) {
-			setCart(cart.filter((items) => items !== item));
+			deleteItem(item);
 		} else if (newCount > oldCount) {
 			handleCartData(item);
 		} else if (newCount < oldCount) {
-			deleteItem(item.id);
+			decreaseItem(item.id);
 		}
 	}
 
@@ -31,7 +31,7 @@ function Cart() {
 	function confirmCheckout(e) {
 		setShowDialog(false);
 		setCart([]);
-		alert(e ==='empty'? "Your cart is empty" : "Thank you for your purchase");
+		alert(e === "empty" ? "Your cart is empty" : "Thank you for your purchase");
 		dialogRef.current?.close();
 		nav("/shopping");
 	}
@@ -49,19 +49,21 @@ function Cart() {
 			const timer = setTimeout(() => {
 				handleCheckout();
 			}, 3000);
+			if (cart.length === 0) {
+				confirmCheckout("empty");
+			}
 			return () => {
 				clearTimeout(timer);
 			};
-		} else if(cart.length === 0){
-			confirmCheckout('empty');
 		}
-	},[showDialog]);
+	}, [showDialog]);
 
 	return (
 		<div>
 			<h1>Your Cart</h1>
 			<p>Review the items you have added to your cart.</p>
 			<div className={styles.cartDiv}>
+				{cart.length === 0 && <p>Cart is empty, check out the Shop.</p>}
 				<ul>
 					{Array.from(cartSet.values()).map((item) => (
 						<li className={styles.cartItem} key={item.id}>
