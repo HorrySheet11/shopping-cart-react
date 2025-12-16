@@ -11,16 +11,13 @@ describe("App component", () => {
 				<App />
 			</MemoryRouter>,
 		);
-		// screen.debug();
 
 		const heading = screen.getByTestId("header");
 		const links = screen.getAllByRole("link");
 
-    // Assert that the header and links are present in the document
     expect(heading).toBeInTheDocument();
     expect(links).toHaveLength(3); // Assuming there are 3 links in the header
 
-    // You can also check if specific links are present
     expect(screen.getByRole("link", { name: /Home/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Shopping/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Cart/i })).toBeInTheDocument();

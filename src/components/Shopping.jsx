@@ -25,6 +25,7 @@ function Shopping() {
 						<h2>{product.title}</h2>
 						<img src={product.image} alt={product.title} />
 						<button
+							data-testid={`${product.title}-button`}
 							type="button"
 							onClick={()=>handleCartData(product)}
 						>
