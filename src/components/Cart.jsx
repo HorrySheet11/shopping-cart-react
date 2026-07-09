@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from "react-router";
 import styles from "../styles.module.css";
 
 function Cart() {
-	const { handleCartData, deleteItem, cart, decreaseItem } = useOutletContext();
+	const { handleCartData, deleteItem, cart, decreaseItem,setCart } = useOutletContext();
 	const [showDialog, setShowDialog] = useState(false);
 	const total = cart.reduce((acc, item) => acc + item.price, 0);
 	const dialogRef = useRef(null);

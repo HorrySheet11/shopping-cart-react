@@ -19,7 +19,7 @@ function Home() {
 			<h1>Welcome to the Horry Shop!</h1>
 			<p>The place to get wacky, crazy, & weird products.</p>
 			<p>
-				Check out our <a href="/shop">Shop</a> or <a href="/cart">Cart</a>!
+				Check out our <a href="/shopping">Shop</a> or <a href="/cart">Cart</a>!
 			</p>
 			<h2>Here is a random picture of a husky :3</h2>
 			<img

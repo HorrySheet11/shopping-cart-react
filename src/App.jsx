@@ -39,7 +39,7 @@ function App() {
 				</nav>
 			</header>
 			<main className={styles.main}>
-				<Outlet context={{ handleCartData, deleteItem, cart, decreaseItem }} />
+				<Outlet context={{ handleCartData, deleteItem, cart, decreaseItem, setCart }} />
 			</main>
 		</QueryClientProvider>
 	);
